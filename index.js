@@ -9,10 +9,12 @@ app.use(bodyParser.json())
 const nodemailer = require("nodemailer");
 
 app.get('/', function(req, res){
+  console.log('Index page')
   res.send("Hi")
 })
 
 app.post('/emailOwner', function(req, res){
+  console.log("Emailing owner...")
   if(!req.body.email || !req.body.message) return res.send('400');
   res.send('200')
   try {
@@ -37,4 +39,4 @@ app.post('/emailOwner', function(req, res){
   } catch(e){}
 })
 
-app.listen(process.env.PORT || 3030, "0.0.0.0",() => console.log('Servicebin listening...'));
+app.listen(process.env.PORT || 443, "0.0.0.0",() => console.log('Servicebin listening...'+process.env.PORT));
