@@ -9,14 +9,11 @@ app.use(bodyParser.json())
 const nodemailer = require("nodemailer");
 
 app.get('/', function(req, res){
-  console.log('Index page')
   res.send("Hi")
 })
 
 app.post('/emailOwner', function(req, res){
-  console.log("Emailing owner...")
   if(!req.body.email || !req.body.message) return res.send('400');
-  res.send('200')
   try {
       let transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -36,7 +33,10 @@ app.post('/emailOwner', function(req, res){
         text: "Message: "+req.body.message, // plain text body
         html: "<b>Message:</b><br/>"+req.body.message, // html body
       })
-  } catch(e){}
+  } catch(e){
+    return res.send({error:e})
+  }
+  res.send({error:false, msg: "Email sent!"})
 })
 
 app.listen(process.env.PORT || 443, "0.0.0.0",() => console.log('Servicebin listening...'+process.env.PORT));
