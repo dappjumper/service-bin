@@ -8,7 +8,11 @@ app.use(bodyParser.json())
 
 const nodemailer = require("nodemailer");
 
-app.post('emailOwner', function(req, res){
+app.get('/', function(req, res){
+  res.send("Hi")
+})
+
+app.post('/emailOwner', function(req, res){
   if(!req.body.email || !req.body.message) return false;
   try {
       let transporter = nodemailer.createTransport({
