@@ -27,11 +27,11 @@ app.post('/emailOwner', function(req, res){
 
       // send mail with defined transport object
       transporter.sendMail({
-        from: '"Potential employer" <'+req.body.email+'>', // sender address
+        from: 'Portfolio Website <'+process.env.EMAIL+'>', // sender address
         to: process.env.EMAIL, // list of receivers
         subject: "Message from "+req.body.email, // Subject line
-        text: "Message: "+req.body.message, // plain text body
-        html: "<b>Message:</b><br/>"+req.body.message, // html body
+        text: "Message from "+req.body.email+": "+req.body.message, // plain text body
+        html: "<b>Message from "+req.body.email+":</b><br/>"+req.body.message, // html body
       }, function(error, info) {
         res.send({error: error, info: info})
       })
