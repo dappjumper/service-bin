@@ -13,7 +13,8 @@ app.get('/', function(req, res){
 })
 
 app.post('/emailOwner', function(req, res){
-  if(!req.body.email || !req.body.message) return false;
+  if(!req.body.email || !req.body.message) return res.send('400');
+  res.send('200')
   try {
       let transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
