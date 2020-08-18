@@ -32,11 +32,12 @@ app.post('/emailOwner', function(req, res){
         subject: "Message from "+req.body.email, // Subject line
         text: "Message: "+req.body.message, // plain text body
         html: "<b>Message:</b><br/>"+req.body.message, // html body
+      }, function(error, info) {
+        res.send({error: error, info: info})
       })
   } catch(e){
     return res.send({error:e})
   }
-  res.send({error:false, msg: "Email sent!"})
 })
 
 app.listen(process.env.PORT || 443, "0.0.0.0",() => console.log('Servicebin listening...'+process.env.PORT));
